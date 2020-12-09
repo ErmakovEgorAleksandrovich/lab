@@ -18,7 +18,6 @@ public class GornerTableCellRenderer implements TableCellRenderer {
     private DecimalFormat formatter =
             (DecimalFormat)NumberFormat.getInstance();
     public GornerTableCellRenderer() {
-// Показывать только 5 знаков после запятой
         formatter.setMaximumFractionDigits(5);
         formatter.setGroupingUsed(false);   //1000
 // Установить в качестве разделителя дробной части точку, а не запятую
@@ -36,14 +35,10 @@ public class GornerTableCellRenderer implements TableCellRenderer {
         String formattedDouble = formatter.format(value);
         // Установить текст надписи равным строковому представлению числа
         label.setText(formattedDouble);
-
+        //Поиск элементов по столбцу
         if (col==0 && needle!=null && needle.equals(formattedDouble)) {
-            // Номер столбца = 1 (т.е. второй столбец) + иголка не null(значит что-то ищем) +
-            // значение иголки совпадает со значением ячейки таблицы -
-            // окрасить задний фон панели в красный цвет
-            panel.setBackground(Color.YELLOW);
+            panel.setBackground(Color.GREEN);
         } else {
-            // Иначе - в обычный белый
             panel.setBackground(Color.WHITE);
         }
         return panel;
