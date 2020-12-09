@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.JTextField;
 
 public class MainFrame extends JFrame {
@@ -49,10 +48,10 @@ public class MainFrame extends JFrame {
     private JTextField textFieldStep;
     private Box hBoxResult;
     // Визуализатор ячеек таблицы
-    //private GornerTableCellRenderer renderer = new
-            //GornerTableCellRenderer();
+    private GornerTableCellRenderer renderer = new
+            GornerTableCellRenderer();
     // Модель данных с результатами вычислений
-    //private GornerTableModel data;
+    private GornerTableModel data;
     public MainFrame(Double[] coefficients) {
 // Обязательный вызов конструктора предка
         super("Табулирование многочлена на отрезке по схеме Горнера");
@@ -145,7 +144,7 @@ public class MainFrame extends JFrame {
                         JOptionPane.showInputDialog(MainFrame.this, "Введите значение для поиска",
                                 "Поиск значения", JOptionPane.QUESTION_MESSAGE);
 // Установить введенное значение в качестве иголки
-                //renderer.setNeedle(value);
+                renderer.setNeedle(value);
 // Обновить таблицу
                 getContentPane().repaint();
             }
@@ -215,18 +214,18 @@ public class MainFrame extends JFrame {
                     Double step =
                             Double.parseDouble(textFieldStep.getText());
                     // На основе считанных данных создать новый экземпляр модели таблицы
-                    //data = new GornerTableModel(from, to, step,
-                            //MainFrame.this.coefficients);
+                    data = new GornerTableModel(from, to, step,
+                            MainFrame.this.coefficients);
                     // Создать новый экземпляр таблицы
-                    //JTable table = new JTable(data);
+                    JTable table = new JTable(data);
                     // Установить в качестве визуализатора ячеек для класса Double разработанный визуализатор
-                    //table.setDefaultRenderer(Double.class, renderer);
+                    table.setDefaultRenderer(Double.class, renderer);
                     // Установить размер строки таблицы в 30 пикселов
-                    //table.setRowHeight(30);
+                    table.setRowHeight(30);
                     // Удалить все вложенные элементы из контейнера hBoxResult
                     hBoxResult.removeAll();
                     // Добавить в hBoxResult таблицу, "обѐрнутую" в панель с полосами прокрутки
-                    //hBoxResult.add(new JScrollPane(table));
+                    hBoxResult.add(new JScrollPane(table));
                     // Обновить область содержания главного окна
                     getContentPane().validate();
                     // Пометить ряд элементов меню как доступных
@@ -289,10 +288,10 @@ public class MainFrame extends JFrame {
             DataOutputStream out = new DataOutputStream(new
                     FileOutputStream(selectedFile));
             // Записать в поток вывода попарно значение X в точке, значение многочлена в точке
-           // for (int i = 0; i<data.getRowCount(); i++) {
-                //out.writeDouble((Double)data.getValueAt(i,0));
-                //out.writeDouble((Double)data.getValueAt(i,1));
-            //}
+            for (int i = 0; i<data.getRowCount(); i++) {
+                out.writeDouble((Double)data.getValueAt(i,0));
+                out.writeDouble((Double)data.getValueAt(i,1));
+            }
             // Закрыть поток вывода
             out.close();
         } catch (Exception e) {
