@@ -81,7 +81,7 @@ public class MainFrame extends JFrame {
         Action helpDialogWindowAction = new AbstractAction("О программе") {
             public void actionPerformed(ActionEvent event) {
 // Показать диалоговое окно
-                JOptionPane.showMessageDialog(MainFrame.this, "Гранковская Мария, 7 группа");
+                JOptionPane.showMessageDialog(MainFrame.this, "Ермаков Егор, 6 группа");
             }
         };
 
