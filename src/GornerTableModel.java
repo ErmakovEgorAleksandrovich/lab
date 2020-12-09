@@ -44,17 +44,17 @@ public class GornerTableModel extends AbstractTableModel {
                     result = result * x + coefficients[i + 1];
                 }
                 return result;
-            } else {
+            }
+            else {
                 // 3-й столбец
                 result = coefficients[0];
                 Boolean resultBoolean;
                 for (int i = 0; i < coefficients.length - 1; i++) {
                     result = result * x + coefficients[i + 1];
                 }
-                String[] a = String.valueOf(result).split("[.]");
-                int _int = Integer.parseInt(a[0]);
+                int _int = result.intValue();
 
-                if (_int == 0) {
+                if (Math.abs(result - _int) < 0.1 || Math.abs(result - _int) > 0.9) {
                     resultBoolean = true;
                 } else {
                     resultBoolean = false;
@@ -70,7 +70,7 @@ public class GornerTableModel extends AbstractTableModel {
             case 1:
                 return "Значение многочлена";
             default:
-                return "Малое число?";
+                return "Близко к целому";
         }
     }
     public Class<?> getColumnClass(int col) {
